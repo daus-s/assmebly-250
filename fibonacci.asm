@@ -16,17 +16,23 @@
 			bgtz $s0, loop
 			jr $ra
 
-		#loops through and does add components and increment
 		loop:
-			add $t1, $t1, $s0  #sum+=index
-			sub $s0, $s0, 1 #index--
+			#the only difference in the code
+      #fib(n)=fib(n-1)+fib(n-2)
+      beq $t0, 0, one
+      beq $t0, 1, one
+      beq $t1, 0, one
+      beq $t1, 1, one
 			jal check
+
+    one:
+      addi $t2, $t2, 1
 
 		#essentially i built system.out.print(int) but not really cuz it doesnt work
 		output:
 			li $v0, 4
-			move $a0, $t1
-			#sw $a0, 0($t1)
+			move $a0, $t2
+			#sw $a0, 0($t2)
 			syscall
 
 			li, $v0 10			#exit
